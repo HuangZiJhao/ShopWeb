@@ -1,0 +1,47 @@
+﻿@model ShopWeb.ViewModels.MemberLoginViewModel
+
+@{
+  ViewBag.Title = "Login";
+}
+@section scripts{
+  @Scripts.Render("~/bundles/jqueryval")
+
+}
+<div class="page-header">
+  <h2>Login</h2>
+</div>
+<div class="form-horizontal">
+  @using (Html.BeginForm())
+  {
+    <div class="alert alert-warning">
+      @Html.ValidationSummary()
+    </div>
+    <div class="form-group">
+
+      @Html.LabelFor(model => model.Account, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.Account, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Account, "", new { @class = "text-danger" })
+      </div>
+    </div>
+    <div class="form-group">
+
+      @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+      <div class="col-md-10">
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-1 col-md-10">
+        <input type="submit" value="登入" class="btn bg-primary" />
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      @Html.ActionLink("註冊", "Register")
+    </div>
+  }
+</div>

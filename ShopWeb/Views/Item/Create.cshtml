@@ -1,0 +1,48 @@
+﻿@model ShopWeb.ViewModels.ItemCreateViewModel
+
+@{
+  ViewBag.Title = "Create";
+}
+@section scripts{ 
+  @Scripts.Render("~/bundles/jqueryval")
+
+}
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create","Item",FormMethod.Post,new { enctype = "multipart/form-data"}))
+{
+
+    <div class="form-horizontal">
+        <h4>ItemCreateViewModel</h4>
+        <hr />
+        @Html.ValidationSummary()
+    <div class="form-group">
+      <div class="form-group">
+        @Html.LabelFor(model => model.NewData.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+          @Html.TextBoxFor(model => model.NewData.Name, new { @class = "form-control" })
+          @Html.ValidationMessageFor(model => model.NewData.Name, "", new { @class = "text-danger" })
+        </div>
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(model => model.NewData.Price, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+          @Html.TextBoxFor(model => model.NewData.Price, new { @class = "form-control" })
+          @Html.ValidationMessageFor(model => model.NewData.Price, "", new { @class = "text-danger" })
+        </div>
+      </div>
+      <div class="form-group">
+        @Html.LabelFor(model => model.ItemImage,  new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+          @Html.TextBoxFor(model => model.ItemImage, new { @class = "form-control" ,type ="file"} )
+          @Html.ValidationMessageFor(model => model.ItemImage, "", new { @class = "text-danger" })
+        </div>
+      </div>
+      <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-default" />
+      </div>
+    </div>
+    </div>
+}
+
+

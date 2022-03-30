@@ -1,0 +1,38 @@
+﻿@model ShopWeb.ViewModels.ItemDetailViewModel
+
+@{
+  ViewBag.Title = "Item";
+}
+
+<h2>Item</h2>
+
+<div>
+  <h4>@Model.Data.Name</h4>
+</div>
+@Html.DisplayNameFor(model => model.Data.Price);
+@Html.DisplayTextFor(model => model.Data.Price);
+<br />
+<img src="@Html.Encode(Url.Content("~/Upload/" + Model.Data.Image))" />
+<br />
+@if (User.Identity.IsAuthenticated)
+{
+  if (Model.InCart)
+  {
+    <text>已經於購物車中了</text>
+    @Html.ActionLink("取出", "Pop", "Cart", new { Id = Model.Data.Id, toPage = "Item" }, new { @class = "btn btn-warning" })
+  }
+  else
+  {
+    @Html.ActionLink("放入", "Put", "Cart", new { Id = Model.Data.Id, toPage = "Item" }, new { @class = "btn btn-primary" })
+  }
+  if (User.IsInRole("Admin"))
+  {
+    @Html.ActionLink("刪除商品", "Delete", new { Id = Model.Data.Id }, new { @class = "btn btn-danger" })
+  }
+}
+else
+{
+  <text>要使用請先登入</text>
+  @Html.ActionLink("登入","Login","Members")
+}
+

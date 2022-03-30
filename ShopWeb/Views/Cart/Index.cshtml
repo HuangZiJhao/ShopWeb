@@ -1,0 +1,72 @@
+﻿@model ShopWeb.ViewModels.CartBuyViewModel
+
+@{
+  ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="table-responsive">
+  <table class="table">
+    @if (!Model.DataList.Count.Equals(0))
+    {
+
+
+      <tr>
+        <th>
+          @Html.DisplayNameFor(p => p.DataList[0].Item.Name)
+        </th>
+        <th>
+          @Html.DisplayNameFor(p => p.DataList[0].Item.Price)
+        </th>
+      </tr>
+
+      foreach (var item in Model.DataList)
+      {
+        <tr>
+          <td>
+            @Html.ActionLink(item.Item.Name, "Item", new { Id = item.Item.Id }) |
+
+          </td>
+          <td>
+            @item.Item.Price
+          </td>
+          <td>
+
+            @Html.ActionLink("從購物車取出", "Pop", new { Id = item.Item.Id, toPage = "Cart" }, new { @class = "btn btn-primary" }) |
+
+          </td>
+        </tr>
+      }
+    }
+    else
+    {
+      <tr>
+        <td>
+          無商品
+        </td>
+      </tr>
+
+    }
+  </table>
+  @if (Model.isCartsave)
+  {
+    <text>
+      以保存
+    </text>
+    @Html.ActionLink("取消", "CartSaveRemove", null, new { @class = "btn btn-danger" })
+
+  }
+  else
+  {
+    <text>
+      未保存
+    </text>
+    @Html.ActionLink("保存", "CartSave", null, new { @class = "btn btn-primary" })
+  }
+
+</div>
+
+
+
+
+

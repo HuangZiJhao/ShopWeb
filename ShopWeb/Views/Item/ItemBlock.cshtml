@@ -1,0 +1,44 @@
+﻿@model ShopWeb.ViewModels.ItemDetailViewModel
+
+@{
+  ViewBag.Title = "ItemBlock";
+}
+
+<h2>ItemBlock</h2>
+
+<table>
+  <tr>
+    <td>
+      <img width="100" src="@Html.Encode(Url.Content("~/Upload/" + Model.Data.Image))" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      @Html.DisplayNameFor(model => model.Data.Name);
+      @Html.ActionLink(Model.Data.Name, "Item", new { Id = Model.Data.Id })
+    </td>
+  </tr>
+  <tr>
+    <td>
+      @if (User.Identity.IsAuthenticated)
+      {
+        if (Model.InCart)
+        {
+          @Ajax.ActionLink("取出", "Pop", "Cart", new { Id = Model.Data.Id, toPage = "ItemBlock" }, new AjaxOptions { UpdateTargetId = "ItemBlock-" + Model.Data.Id, InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-warning" })
+        }
+        else
+        {
+          @Ajax.ActionLink("放入", "Put", "Cart", new { Id = Model.Data.Id, toPage = "ItemBlock" }, new AjaxOptions { UpdateTargetId = "ItemBlock-" + Model.Data.Id, InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-primary" })
+        }
+        if (User.IsInRole("Admin")) {
+        @Html.ActionLink("刪除商品", "Delete", new { Id = Model.Data.Id },new { @class="btn btn-danger" }); 
+        }
+      }
+    </td>
+  </tr>
+  <tr>
+    <td>
+      
+    </td>
+  </tr>
+</table>
